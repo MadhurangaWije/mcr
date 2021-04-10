@@ -1,14 +1,17 @@
 import flask
 from flask import request, jsonify
+from flask_cors import CORS, cross_origin
 
 from simpletransformers.question_answering import QuestionAnsweringModel
 
 model = QuestionAnsweringModel('xlmroberta','./trained_model/', use_cuda=False, args={'fp16':False})
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/predict', methods=['POST'])
+@cross_origin()
 def predict():
 
     request_data = request.json
@@ -32,5 +35,6 @@ def predict():
     return jsonify(answer=str(answer))
 
 @app.route('/', methods=['GET'])
+@cross_origin()
 def home():
     return "Welcome to Sinhala Machine Comprehension API by Chamumi Abeysinghe"
