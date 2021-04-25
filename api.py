@@ -38,3 +38,8 @@ def predict():
 @cross_origin()
 def home():
     return "Welcome to Sinhala Machine Comprehension API by Chamumi Abeysinghe"
+
+
+# app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
